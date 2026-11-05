@@ -1,0 +1,80 @@
+import { z } from "zod";
+
+/** Section types the template knows about. Add a name here when a new section is built. */
+export const SECTION_TYPES = ["hero", "about", "items", "offers", "gallery", "contact"] as const;
+export type SectionType = (typeof SECTION_TYPES)[number];
+
+const hex = z.string().regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/, "Use a hex color like #1f3a5f");
+
+export const themeSchema = z.object({
+  colors: z.object({
+    background: hex,
+    foreground: hex,
+    primary: hex,
+    primaryForeground: hex,
+    secondary: hex,
+    muted: hex,
+    mutedForeground: hex,
+    accent: hex,
+    border: hex,
+  }),
+  radius: z.enum(["none", "sm", "md", "lg", "xl", "full"]),
+});
+
+export const siteConfigSchema = z.object({
+  name: z.string().min(1),
+  tagline: z.string().min(1),
+  description: z.string().min(1),
+  /** Label used for the main list: "المنتجات" / "الخدمات" / "المنيو" */
+  itemsLabel: z.string().min(1),
+  currency: z.string().min(1),
+  theme: themeSchema,
+  contact: z.object({
+    /** International format, digits only, e.g. 201012345678 */
+    whatsapp: z.string().regex(/^\d{8,15}$/, "WhatsApp: digits only, with country code"),
+    phone: z.string().optional(),
+    address: z.string().optional(),
+    mapUrl: z.url().optional(),
+    hours: z.string().optional(),
+  }),
+  sections: z
+    .array(z.object({ type: z.enum(SECTION_TYPES), variant: z.string().optional() }))
+    .min(1),
+  features: z.object({
+    cart: z.boolean().default(false),
+    booking: z.boolean().default(false),
+  }),
+});
+
+export type SiteConfig = z.output<typeof siteConfigSchema>;
+export type SiteConfigInput = z.input<typeof siteConfigSchema>;
+export type Theme = z.output<typeof themeSchema>;
+
+export const itemSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  description: z.string().optional(),
+  category: z.string().min(1),
+  /** Path under /public (e.g. /images/mug.jpg) or a full URL */
+  image: z.string().optional(),
+  /** Optional: services may have no fixed price */
+  price: z.number().nonnegative().optional(),
+  badge: z.string().optional(),
+});
+
+export const itemsSchema = z
+  .array(itemSchema)
+  .refine((items) => new Set(items.map((i) => i.id)).size === items.length, {
+    message: "Duplicate item id",
+  });
+
+export type Item = z.output<typeof itemSchema>;
+
+/** Validates at build time: a typo in a client's data fails the build, not the live site. */
+export function defineSiteConfig(input: SiteConfigInput): SiteConfig {
+  return siteConfigSchema.parse(input);
+}
+
+export function defineItems(input: z.input<typeof itemsSchema>): Item[] {
+  return itemsSchema.parse(input);
+}

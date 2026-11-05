@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Fallback values. The real ones come from the theme in site.config (see layout.tsx). */
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+  --primary: #1f4d36;
+  --primary-foreground: #ffffff;
+  --secondary: #efefef;
+  --muted: #f4f4f4;
+  --muted-foreground: #666666;
+  --accent: #c8643c;
+  --border: #e5e5e5;
+  --radius: 1rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --radius-card: var(--radius);
+  --font-sans: var(--font-cairo), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: clip; /* safety net against accidental horizontal scroll */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
