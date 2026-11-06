@@ -34,6 +34,18 @@ export const heroSchema = z.object({
   secondaryCtaLabel: z.string().optional(),
 });
 
+export const BUSINESS_TYPES = [
+  "LocalBusiness",
+  "CafeOrCoffeeShop",
+  "Restaurant",
+  "BeautySalon",
+  "HealthClub",
+  "ClothingStore",
+  "Store",
+  "MedicalClinic",
+  "Dentist",
+] as const;
+
 const timeString = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Time must look like "09:00" (24h)');
 
 export const openingHoursSchema = z.object({
@@ -57,6 +69,16 @@ export const siteConfigSchema = z.object({
   itemsLabel: z.string().min(1),
   currency: z.string().min(1),
   theme: themeSchema,
+  /** Search-engine settings. Everything is optional. */
+  seo: z
+    .object({
+      /** schema.org type, helps Google understand the business */
+      businessType: z.enum(BUSINESS_TYPES).default("LocalBusiness"),
+      /** Image shown when the link is shared (WhatsApp, Facebook). Default: the hero image */
+      ogImage: z.string().startsWith("/").optional(),
+      keywords: z.array(z.string().min(1)).max(15).optional(),
+    })
+    .optional(),
   hero: heroSchema.optional(),
   about: z
     .object({

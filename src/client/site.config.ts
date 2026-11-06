@@ -12,6 +12,11 @@ export const siteConfig = defineSiteConfig({
   itemsLabel: "المنيو",
   currency: "ج.م",
   theme: themes.warm, // try themes.midnight or themes.fresh
+  seo: {
+    businessType: "CafeOrCoffeeShop", // LocalBusiness | Restaurant | BeautySalon | ClothingStore | ...
+    keywords: ["مقهى المنصورة", "قهوة", "حلويات", "كافيه"],
+    // ogImage: "/images/og.webp", // default: the hero image
+  },
   hero: {
     badge: "عرض الخريف · خصم 15% على الحلويات",
     secondaryCtaLabel: "شوف المنيو",
