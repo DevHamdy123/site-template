@@ -39,6 +39,7 @@ export const siteConfig = defineSiteConfig({
     phone: "01000000000",
     address: "شارع الجمهورية، المنصورة",
     hours: "يوميًا من 9 ص إلى 12 م",
+    openingHours: { open: "09:00", close: "00:00" }, // days: [0..6] (0 = Sunday), timezone: "Africa/Cairo"
     // mapUrl: "https://maps.app.goo.gl/...",            // opens Google Maps
     // mapEmbedUrl: "https://www.google.com/maps/embed?pb=...", // shows the map inside the page
     // social: { instagram: "https://instagram.com/your-page", facebook: "https://facebook.com/your-page" },

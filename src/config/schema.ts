@@ -34,6 +34,21 @@ export const heroSchema = z.object({
   secondaryCtaLabel: z.string().optional(),
 });
 
+const timeString = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Time must look like "09:00" (24h)');
+
+export const openingHoursSchema = z.object({
+  /** "09:00" (24h) */
+  open: timeString,
+  /** "23:30". "00:00" or any time before `open` means after midnight */
+  close: timeString,
+  /** 0 = Sunday ... 6 = Saturday. Default: every day */
+  days: z.array(z.number().int().min(0).max(6)).min(1).optional(),
+  /** IANA timezone of the shop */
+  timezone: z.string().default("Africa/Cairo"),
+});
+
+export type OpeningHours = z.output<typeof openingHoursSchema>;
+
 export const siteConfigSchema = z.object({
   name: z.string().min(1),
   tagline: z.string().min(1),
@@ -87,7 +102,10 @@ export const siteConfigSchema = z.object({
         tiktok: z.url().optional(),
       })
       .optional(),
+    /** Free text shown in the Contact section, e.g. "يوميًا من 9 ص إلى 12 م" */
     hours: z.string().optional(),
+    /** Structured hours: powers the "open now / closed" badge in the hero */
+    openingHours: openingHoursSchema.optional(),
   }),
   sections: z
     .array(
