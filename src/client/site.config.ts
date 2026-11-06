@@ -32,7 +32,7 @@ export const siteConfig = defineSiteConfig({
     { type: "hero", variant: "card" }, // card | full | split | centered
     { type: "highlights" },
     { type: "about" },
-    { type: "items" },
+    { type: "items", variant: "menu" }, // menu (cafe) | grid (products with photos)
     { type: "offers" },
     { type: "gallery" },
     { type: "contact" },

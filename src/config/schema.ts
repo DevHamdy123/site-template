@@ -81,8 +81,8 @@ export const itemSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   category: z.string().min(1),
-  /** Path under /public (e.g. /images/mug.jpg) or a full URL */
-  image: z.string().optional(),
+  /** Image inside /public, e.g. /images/mug.webp */
+  image: z.string().startsWith("/").optional(),
   /** Optional: services may have no fixed price */
   price: z.number().nonnegative().optional(),
   badge: z.string().optional(),
