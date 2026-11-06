@@ -15,8 +15,13 @@ export const siteConfig = defineSiteConfig({
   hero: {
     badge: "عرض الخريف · خصم 15% على الحلويات",
     secondaryCtaLabel: "شوف المنيو",
-    // image: "/images/hero.jpg",  // put the file in public/images/ then uncomment
+    image: "/images/hero.webp", // file lives in public/images/
   },
+  highlights: [
+    { label: "مواعيد العمل", value: "يوميًا من 9 ص إلى 12 م" },
+    { label: "التوصيل", value: "متاح داخل المنصورة" },
+    { label: "جديد هذا الأسبوع", value: "تشيز كيك الفستق" },
+  ],
   contact: {
     whatsapp: "201000000000",
     phone: "01000000000",
@@ -24,7 +29,8 @@ export const siteConfig = defineSiteConfig({
     hours: "يوميًا من 9 ص إلى 12 م",
   },
   sections: [
-    { type: "hero", variant: "split" }, // split | full | centered
+    { type: "hero", variant: "card" }, // card | full | split | centered
+    { type: "highlights" },
     { type: "about" },
     { type: "items" },
     { type: "offers" },

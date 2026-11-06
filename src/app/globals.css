@@ -32,6 +32,13 @@ html {
   scroll-behavior: smooth;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading, var(--font-cairo)), system-ui, sans-serif;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

@@ -9,6 +9,10 @@ describe("getNavLinks", () => {
     expect(links[0]).toEqual({ href: "#about", label: "عن المحل" });
   });
 
+  it("excludes the highlights strip", () => {
+    expect(getNavLinks(siteConfig).map((l) => l.href)).not.toContain("#highlights");
+  });
+
   it("uses itemsLabel for the items section", () => {
     const items = getNavLinks(siteConfig).find((l) => l.href === "#items");
     expect(items?.label).toBe(siteConfig.itemsLabel);

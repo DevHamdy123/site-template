@@ -57,5 +57,7 @@ describe("theme", () => {
     const vars = themeToCssVars(themes.warm);
     expect(vars["--primary"]).toBe(themes.warm.colors.primary);
     expect(vars["--radius"]).toBe("1.5rem");
+    expect(vars["--font-heading"]).toBe("var(--font-messiri)");
+    expect(themeToCssVars(themes.fresh)["--font-heading"]).toBe("var(--font-cairo)");
   });
 });

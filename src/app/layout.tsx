@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cairo } from "next/font/google";
+import { Cairo, El_Messiri } from "next/font/google";
 import { siteConfig } from "@/client/site.config";
 import { themeToCssVars } from "@/config/theme-vars";
 import { MotionProvider } from "@/components/MotionProvider";
@@ -8,6 +8,13 @@ import "./globals.css";
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-cairo",
+  display: "swap",
+});
+
+const messiri = El_Messiri({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-messiri",
   display: "swap",
 });
 
@@ -27,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="ar"
       dir="rtl"
-      className={cairo.variable}
+      className={`${cairo.variable} ${messiri.variable}`}
       style={themeToCssVars(siteConfig.theme) as React.CSSProperties}
     >
       <body className="min-h-dvh font-sans antialiased"><MotionProvider>{children}</MotionProvider></body>

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /** Section types the template knows about. Add a name here when a new section is built. */
-export const SECTION_TYPES = ["hero", "about", "items", "offers", "gallery", "contact"] as const;
+export const SECTION_TYPES = ["hero", "highlights", "about", "items", "offers", "gallery", "contact"] as const;
 export type SectionType = (typeof SECTION_TYPES)[number];
 
 const hex = z.string().regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/, "Use a hex color like #1f3a5f");
@@ -19,6 +19,8 @@ export const themeSchema = z.object({
     border: hex,
   }),
   radius: z.enum(["none", "sm", "md", "lg", "xl", "full"]),
+  /** modern = Cairo (clean), classic = El Messiri (elegant display) */
+  headingFont: z.enum(["modern", "classic"]),
 });
 
 export const heroSchema = z.object({
@@ -41,6 +43,11 @@ export const siteConfigSchema = z.object({
   currency: z.string().min(1),
   theme: themeSchema,
   hero: heroSchema.optional(),
+  /** Small info cards under the hero: opening hours, delivery, what's new... */
+  highlights: z
+    .array(z.object({ label: z.string().min(1), value: z.string().min(1) }))
+    .max(4)
+    .optional(),
   contact: z.object({
     /** International format, digits only, e.g. 201012345678 */
     whatsapp: z.string().regex(/^\d{8,15}$/, "WhatsApp: digits only, with country code"),
