@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import type { SectionType } from "./schema";
 import { Hero } from "@/components/sections/Hero";
 import { Highlights } from "@/components/sections/Highlights";
+import { Items } from "@/components/sections/Items";
 
 export type SectionProps = { variant?: string };
 
@@ -13,4 +14,5 @@ export type SectionProps = { variant?: string };
 export const sectionRegistry: Partial<Record<SectionType, ComponentType<SectionProps>>> = {
   hero: Hero,
   highlights: Highlights,
+  items: Items,
 };

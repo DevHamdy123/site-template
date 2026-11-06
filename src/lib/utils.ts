@@ -12,5 +12,5 @@ export function whatsappLink(number: string, text?: string) {
 }
 
 export function formatPrice(price: number, currency: string) {
-  return `${new Intl.NumberFormat("ar-EG").format(price)} ${currency}`;
+  return `${new Intl.NumberFormat("ar-EG-u-nu-latn").format(price)} ${currency}`;
 }
