@@ -22,11 +22,26 @@ export const siteConfig = defineSiteConfig({
     { label: "التوصيل", value: "متاح داخل المنصورة" },
     { label: "جديد هذا الأسبوع", value: "تشيز كيك الفستق" },
   ],
+  about: {
+    title: "قصتنا",
+    text: "بدأنا بحلم بسيط: مكان هادي في قلب المنصورة تقعد فيه تشرب قهوة مظبوطة وتحس إنك في بيتك.\nبنحمّص البن بنفسنا ونحضّر الحلويات يوميًا طازجة.",
+    points: ["بن مُحمّص طازج", "حلويات يومية", "جلسات هادية", "واي فاي مجاني"],
+    // image: "/images/about.webp", // put the file in public/images/ then uncomment
+  },
+  offers: [
+    { title: "خصم 15% على الحلويات", description: "على كل الحلويات طوال الأسبوع.", badge: "ينتهي قريبًا" },
+    { title: "قهوة + حلوى", description: "أي قهوة ساخنة مع قطعة حلوى بسعر مميز." },
+    { title: "عرض الطلبة", description: "خصم 10% بكارنيه الجامعة." },
+  ],
+  // gallery: [{ src: "/images/gallery-1.webp", alt: "المكان من الداخل" }], // 4–8 photos looks best
   contact: {
     whatsapp: "201000000000",
     phone: "01000000000",
     address: "شارع الجمهورية، المنصورة",
     hours: "يوميًا من 9 ص إلى 12 م",
+    // mapUrl: "https://maps.app.goo.gl/...",            // opens Google Maps
+    // mapEmbedUrl: "https://www.google.com/maps/embed?pb=...", // shows the map inside the page
+    // social: { instagram: "https://instagram.com/your-page", facebook: "https://facebook.com/your-page" },
   },
   sections: [
     { type: "hero", variant: "card" }, // card | full | split | centered

@@ -22,7 +22,16 @@ describe("getNavLinks", () => {
     const links = getNavLinks({
       itemsLabel: "المنتجات",
       sections: [{ type: "hero" }, { type: "offers", label: "الخصومات" }],
+      offers: [{ title: "خصم" }],
     });
     expect(links).toEqual([{ href: "#offers", label: "الخصومات" }]);
+  });
+
+  it("skips sections that have no data", () => {
+    const links = getNavLinks({
+      itemsLabel: "المنيو",
+      sections: [{ type: "about" }, { type: "offers" }, { type: "gallery" }, { type: "contact" }],
+    });
+    expect(links.map((l) => l.href)).toEqual(["#contact"]);
   });
 });

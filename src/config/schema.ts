@@ -43,6 +43,29 @@ export const siteConfigSchema = z.object({
   currency: z.string().min(1),
   theme: themeSchema,
   hero: heroSchema.optional(),
+  about: z
+    .object({
+      title: z.string().optional(),
+      text: z.string().min(1),
+      /** Short bullet points, e.g. "بن طازج", "جلسات هادية" */
+      points: z.array(z.string().min(1)).max(6).optional(),
+      image: z.string().startsWith("/").optional(),
+    })
+    .optional(),
+  offers: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        description: z.string().optional(),
+        badge: z.string().optional(),
+      }),
+    )
+    .max(6)
+    .optional(),
+  gallery: z
+    .array(z.object({ src: z.string().startsWith("/"), alt: z.string().min(1) }))
+    .max(12)
+    .optional(),
   /** Small info cards under the hero: opening hours, delivery, what's new... */
   highlights: z
     .array(z.object({ label: z.string().min(1), value: z.string().min(1) }))
@@ -53,7 +76,17 @@ export const siteConfigSchema = z.object({
     whatsapp: z.string().regex(/^\d{8,15}$/, "WhatsApp: digits only, with country code"),
     phone: z.string().optional(),
     address: z.string().optional(),
+    /** Link that opens the place in Google Maps */
     mapUrl: z.url().optional(),
+    /** Google Maps > Share > Embed a map > copy the src="..." value */
+    mapEmbedUrl: z.url().optional(),
+    social: z
+      .object({
+        instagram: z.url().optional(),
+        facebook: z.url().optional(),
+        tiktok: z.url().optional(),
+      })
+      .optional(),
     hours: z.string().optional(),
   }),
   sections: z

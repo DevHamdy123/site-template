@@ -1,8 +1,12 @@
 import type { ComponentType } from "react";
 import type { SectionType } from "./schema";
+import { About } from "@/components/sections/About";
+import { Contact } from "@/components/sections/Contact";
+import { Gallery } from "@/components/sections/Gallery";
 import { Hero } from "@/components/sections/Hero";
 import { Highlights } from "@/components/sections/Highlights";
 import { Items } from "@/components/sections/Items";
+import { Offers } from "@/components/sections/Offers";
 
 export type SectionProps = { variant?: string };
 
@@ -15,4 +19,8 @@ export const sectionRegistry: Partial<Record<SectionType, ComponentType<SectionP
   hero: Hero,
   highlights: Highlights,
   items: Items,
+  about: About,
+  offers: Offers,
+  gallery: Gallery,
+  contact: Contact,
 };
