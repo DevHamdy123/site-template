@@ -31,14 +31,21 @@ export const siteConfig = defineSiteConfig({
     title: "قصتنا",
     text: "بدأنا بحلم بسيط: مكان هادي في قلب المنصورة تقعد فيه تشرب قهوة مظبوطة وتحس إنك في بيتك.\nبنحمّص البن بنفسنا ونحضّر الحلويات يوميًا طازجة.",
     points: ["بن مُحمّص طازج", "حلويات يومية", "جلسات هادية", "واي فاي مجاني"],
-    // image: "/images/about.webp", // put the file in public/images/ then uncomment
+    image: "/images/about.webp",
   },
   offers: [
     { title: "خصم 15% على الحلويات", description: "على كل الحلويات طوال الأسبوع.", badge: "ينتهي قريبًا" },
     { title: "قهوة + حلوى", description: "أي قهوة ساخنة مع قطعة حلوى بسعر مميز." },
     { title: "عرض الطلبة", description: "خصم 10% بكارنيه الجامعة." },
   ],
-  // gallery: [{ src: "/images/gallery-1.webp", alt: "المكان من الداخل" }], // 4–8 photos looks best
+  gallery: [
+    { src: "/images/gallery-1.webp", alt: "قطعة كيك" },
+    { src: "/images/gallery-2.webp", alt: "آيس كوفي" },
+    { src: "/images/gallery-3.webp", alt: "معجنات طازجة" },
+    { src: "/images/gallery-4.webp", alt: "تحضير القهوة" },
+    { src: "/images/gallery-5.webp", alt: "حلوى الشوكولاتة" },
+    { src: "/images/gallery-6.webp", alt: "ماكينة الإسبريسو" },
+  ], // 4, 6 or 8 photos fill the grid best
   contact: {
     whatsapp: "201000000000",
     phone: "01000000000",

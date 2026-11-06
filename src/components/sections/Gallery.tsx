@@ -9,12 +9,16 @@ export function Gallery() {
   const photos = siteConfig.gallery ?? [];
   if (photos.length === 0) return null;
 
+  // 6 or 9 photos: 3 columns on desktop (no half-empty last row). Otherwise 4.
+  const lgColumns =
+    photos.length % 4 !== 0 && photos.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4";
+
   return (
     <Section id="gallery">
       <Reveal>
         <h2 className="text-3xl font-bold sm:text-4xl">{SECTION_LABELS.gallery}</h2>
       </Reveal>
-      <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+      <ul className={`mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 ${lgColumns}`}>
         {photos.map((photo, i) => (
           <li key={photo.src}>
             <Reveal delay={(i % 4) * 0.06}>
@@ -23,7 +27,7 @@ export function Gallery() {
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                  sizes="(min-width: 640px) 33vw, 50vw"
                   className="object-cover transition-transform duration-500 hover:scale-105"
                 />
               </div>
