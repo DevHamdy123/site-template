@@ -1,14 +1,21 @@
 import Image from "next/image";
 import { MessageCircle } from "lucide-react";
 import type { Item } from "@/config/schema";
+import { AddToCart } from "@/components/cart/AddToCart";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { formatPrice, whatsappLink } from "@/lib/utils";
 
-type ItemGridProps = { items: Item[]; currency: string; whatsapp: string };
+type ItemGridProps = {
+  items: Item[];
+  currency: string;
+  whatsapp: string;
+  /** Replace the per-item WhatsApp button with add-to-cart (site.config features.cart) */
+  cartEnabled?: boolean;
+};
 
 /** Product style: photo cards with price and a WhatsApp order button per item. */
-export function ItemGrid({ items, currency, whatsapp }: ItemGridProps) {
+export function ItemGrid({ items, currency, whatsapp, cartEnabled }: ItemGridProps) {
   return (
     <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
       {items.map((item, index) => (
@@ -47,15 +54,19 @@ export function ItemGrid({ items, currency, whatsapp }: ItemGridProps) {
                       {formatPrice(item.price, currency)}
                     </p>
                   )}
-                  <ButtonLink
-                    href={whatsappLink(whatsapp, `مرحبًا، عايز أطلب: ${item.name}`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="min-h-10 w-full px-3 py-2 text-sm"
-                  >
-                    <MessageCircle size={16} aria-hidden />
-                    اطلب عبر واتساب
-                  </ButtonLink>
+                  {cartEnabled ? (
+                    <AddToCart item={item} variant="full" />
+                  ) : (
+                    <ButtonLink
+                      href={whatsappLink(whatsapp, `مرحبًا، عايز أطلب: ${item.name}`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="min-h-10 w-full px-3 py-2 text-sm"
+                    >
+                      <MessageCircle size={16} aria-hidden />
+                      اطلب عبر واتساب
+                    </ButtonLink>
+                  )}
                 </div>
               </div>
             </article>

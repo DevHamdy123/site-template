@@ -1,11 +1,18 @@
 import type { Item } from "@/config/schema";
+import { AddToCart } from "@/components/cart/AddToCart";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn, formatPrice } from "@/lib/utils";
 
-type MenuListProps = { items: Item[]; categories: string[]; currency: string };
+type MenuListProps = {
+  items: Item[];
+  categories: string[];
+  currency: string;
+  /** Show the "+" add-to-cart button (site.config features.cart) */
+  cartEnabled?: boolean;
+};
 
 /** Cafe/restaurant style: items grouped by category, name ..... price. */
-export function MenuList({ items, categories, currency }: MenuListProps) {
+export function MenuList({ items, categories, currency, cartEnabled }: MenuListProps) {
   const groups = categories
     .map((category) => ({ category, items: items.filter((i) => i.category === category) }))
     .filter((g) => g.items.length > 0);
@@ -23,7 +30,7 @@ export function MenuList({ items, categories, currency }: MenuListProps) {
           <ul className={cn("flex flex-col gap-5", single && "lg:grid lg:grid-cols-2 lg:gap-x-16")}>
             {group.items.map((item) => (
               <li key={item.id}>
-                <div className="flex items-baseline gap-3">
+                <div className={cn("flex gap-3", cartEnabled ? "items-center" : "items-baseline")}>
                   <span className="text-lg font-bold">{item.name}</span>
                   {item.badge && (
                     <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-white">
@@ -36,6 +43,7 @@ export function MenuList({ items, categories, currency }: MenuListProps) {
                       {formatPrice(item.price, currency)}
                     </span>
                   )}
+                  {cartEnabled && <AddToCart item={item} />}
                 </div>
                 {item.description && (
                   <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>

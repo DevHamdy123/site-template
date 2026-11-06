@@ -15,6 +15,7 @@ type ItemsBrowserProps = {
   currency: string;
   whatsapp: string;
   label: string;
+  cartEnabled?: boolean;
 };
 
 const ALL = "__all__";
@@ -27,6 +28,7 @@ export function ItemsBrowser({
   currency,
   whatsapp,
   label,
+  cartEnabled,
 }: ItemsBrowserProps) {
   const [category, setCategory] = useState(ALL);
   const [query, setQuery] = useState("");
@@ -87,9 +89,14 @@ export function ItemsBrowser({
           مفيش نتائج مطابقة لبحثك.
         </p>
       ) : variant === "grid" ? (
-        <ItemGrid items={visible} currency={currency} whatsapp={whatsapp} />
+        <ItemGrid items={visible} currency={currency} whatsapp={whatsapp} cartEnabled={cartEnabled} />
       ) : (
-        <MenuList items={visible} categories={categories} currency={currency} />
+        <MenuList
+          items={visible}
+          categories={categories}
+          currency={currency}
+          cartEnabled={cartEnabled}
+        />
       )}
     </div>
   );

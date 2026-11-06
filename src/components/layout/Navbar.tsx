@@ -11,9 +11,11 @@ type NavbarProps = {
   name: string;
   links: NavLink[];
   whatsappHref: string;
+  /** Cart button (only passed when features.cart is on) */
+  cart?: React.ReactNode;
 };
 
-export function Navbar({ name, links, whatsappHref }: NavbarProps) {
+export function Navbar({ name, links, whatsappHref, cart }: NavbarProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -45,6 +47,7 @@ export function Navbar({ name, links, whatsappHref }: NavbarProps) {
         </nav>
 
         <div className="flex items-center gap-2">
+          {cart}
           <ButtonLink
             href={whatsappHref}
             target="_blank"
@@ -73,11 +76,11 @@ export function Navbar({ name, links, whatsappHref }: NavbarProps) {
           <motion.div
             id="mobile-menu"
             key="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-border bg-background md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-border bg-background shadow-lg md:hidden"
           >
             <Container className="flex flex-col gap-1 py-4">
               {links.map((link) => (
