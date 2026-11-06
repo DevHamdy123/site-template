@@ -5,6 +5,7 @@ import type { SectionProps } from "@/config/sections-registry";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { OpenBadge } from "@/components/ui/OpenBadge";
 import { cn, whatsappLink } from "@/lib/utils";
 
 type HeroVariant = "card" | "split" | "full" | "centered";
@@ -32,11 +33,16 @@ export function Hero({ variant }: SectionProps) {
         centered ? "mx-auto items-center text-center" : "items-start",
       )}
     >
-      {hero?.badge && (
-        <Reveal immediate>
-          <span className="inline-block rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-white">
-            {hero.badge}
-          </span>
+      {(hero?.badge || contact.openingHours) && (
+        <Reveal immediate className={cn("flex flex-wrap gap-2", centered && "justify-center")}>
+          {hero?.badge && (
+            <span className="inline-block rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-white">
+              {hero.badge}
+            </span>
+          )}
+          {contact.openingHours && (
+            <OpenBadge openingHours={contact.openingHours} onDark={onDark} />
+          )}
         </Reveal>
       )}
       <Reveal immediate delay={0.08}>
@@ -89,7 +95,7 @@ export function Hero({ variant }: SectionProps) {
         alt=""
         fill
         priority
-        sizes="(min-width: 1280px) 1152px, 100vw"
+        sizes="(min-width: 1280px) 1280px, 100vw"
         className="-z-20 object-cover"
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/45 to-black/10 sm:bg-gradient-to-l sm:from-black/75 sm:via-black/40 sm:to-black/5" />

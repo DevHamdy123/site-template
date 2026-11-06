@@ -15,7 +15,7 @@ export function About() {
       <div className={cn("grid items-center gap-10", about.image && "lg:grid-cols-2 lg:gap-16")}>
         <Reveal>
           <h2 className="text-3xl font-bold sm:text-4xl">{about.title ?? "عن المحل"}</h2>
-          <p className="mt-4 whitespace-pre-line text-lg leading-8 text-muted-foreground">
+          <p className="mt-4 max-w-2xl whitespace-pre-line text-lg leading-8 text-muted-foreground">
             {about.text}
           </p>
           {about.points && (
