@@ -15,6 +15,7 @@ export const themes = {
       border: "#e6dccb",
     },
     radius: "xl",
+    headingFont: "classic",
   },
   midnight: {
     colors: {
@@ -29,6 +30,7 @@ export const themes = {
       border: "#2a2e37",
     },
     radius: "md",
+    headingFont: "classic",
   },
   fresh: {
     colors: {
@@ -43,6 +45,7 @@ export const themes = {
       border: "#e2e8f0",
     },
     radius: "lg",
+    headingFont: "modern",
   },
 } satisfies Record<string, Theme>;
 

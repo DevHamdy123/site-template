@@ -23,5 +23,6 @@ export function themeToCssVars(theme: Theme): Record<string, string> {
     "--accent": c.accent,
     "--border": c.border,
     "--radius": RADIUS[theme.radius],
+    "--font-heading": theme.headingFont === "classic" ? "var(--font-messiri)" : "var(--font-cairo)",
   };
 }
