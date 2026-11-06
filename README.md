@@ -9,6 +9,13 @@ npm run dev        # http://localhost:3000
 npm run lint && npm run typecheck && npm test && npm run build
 ```
 
+## فحص الشاشات (موبايل/تاب/كمبيوتر)
+```bash
+npx playwright install chromium     # مرة واحدة
+npm run build && npm start          # في ترمنال
+npm run check:screens               # في ترمنال تاني: سكرين شوتس في ./screenshots + فحص السكرول الأفقي
+```
+
 ## القاعدة الذهبية
 > ملفات **Core** ما بتتعدّلش في مواقع العملاء. العميل ليه `src/client/` و `public/images/` بس.
 
