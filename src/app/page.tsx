@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { SectionPlaceholder } from "@/components/SectionPlaceholder";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
+import { buildJsonLd, getSiteUrl, serializeJsonLd } from "@/lib/seo";
 import { whatsappLink } from "@/lib/utils";
 
 export default function Home() {
@@ -14,8 +15,11 @@ export default function Home() {
   );
   const links = getNavLinks(siteConfig);
 
+  const jsonLd = serializeJsonLd(buildJsonLd(siteConfig, getSiteUrl()));
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       <Navbar name={siteConfig.name} links={links} whatsappHref={whatsappHref} />
       <main>
         {siteConfig.sections.map((section, index) => {

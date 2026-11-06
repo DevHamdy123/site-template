@@ -3,6 +3,7 @@ import { Cairo, El_Messiri } from "next/font/google";
 import { siteConfig } from "@/client/site.config";
 import { themeToCssVars } from "@/config/theme-vars";
 import { MotionProvider } from "@/components/MotionProvider";
+import { buildMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -18,10 +19,7 @@ const messiri = El_Messiri({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: siteConfig.description,
-};
+export const metadata: Metadata = buildMetadata(siteConfig);
 
 export const viewport: Viewport = {
   width: "device-width",
