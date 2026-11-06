@@ -51,8 +51,8 @@ export const siteConfig = defineSiteConfig({
     { src: "/images/gallery-6.webp", alt: "ماكينة الإسبريسو" },
   ], // 4, 6 or 8 photos fill the grid best
   contact: {
-    whatsapp: "20103735109",
-    phone: "0103735109",
+    whatsapp: "201037351092",
+    phone: "01037351092",
     address: "شارع الجمهورية، المنصورة",
     hours: "يوميًا من 9 ص إلى 12 م",
     openingHours: { open: "09:00", close: "00:00" }, // days: [0..6] (0 = Sunday), timezone: "Africa/Cairo"
