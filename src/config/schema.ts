@@ -21,6 +21,17 @@ export const themeSchema = z.object({
   radius: z.enum(["none", "sm", "md", "lg", "xl", "full"]),
 });
 
+export const heroSchema = z.object({
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  /** Small badge above the title, e.g. "عرض الخريف" */
+  badge: z.string().optional(),
+  /** Image inside /public, e.g. /images/hero.jpg */
+  image: z.string().startsWith("/").optional(),
+  ctaLabel: z.string().optional(),
+  secondaryCtaLabel: z.string().optional(),
+});
+
 export const siteConfigSchema = z.object({
   name: z.string().min(1),
   tagline: z.string().min(1),
@@ -29,6 +40,7 @@ export const siteConfigSchema = z.object({
   itemsLabel: z.string().min(1),
   currency: z.string().min(1),
   theme: themeSchema,
+  hero: heroSchema.optional(),
   contact: z.object({
     /** International format, digits only, e.g. 201012345678 */
     whatsapp: z.string().regex(/^\d{8,15}$/, "WhatsApp: digits only, with country code"),
@@ -38,7 +50,14 @@ export const siteConfigSchema = z.object({
     hours: z.string().optional(),
   }),
   sections: z
-    .array(z.object({ type: z.enum(SECTION_TYPES), variant: z.string().optional() }))
+    .array(
+      z.object({
+        type: z.enum(SECTION_TYPES),
+        variant: z.string().optional(),
+        /** Overrides the default label shown in the navbar */
+        label: z.string().optional(),
+      }),
+    )
     .min(1),
   features: z.object({
     cart: z.boolean().default(false),

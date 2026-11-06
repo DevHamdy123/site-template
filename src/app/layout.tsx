@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cairo } from "next/font/google";
 import { siteConfig } from "@/client/site.config";
 import { themeToCssVars } from "@/config/theme-vars";
+import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={cairo.variable}
       style={themeToCssVars(siteConfig.theme) as React.CSSProperties}
     >
-      <body className="min-h-dvh font-sans antialiased">{children}</body>
+      <body className="min-h-dvh font-sans antialiased"><MotionProvider>{children}</MotionProvider></body>
     </html>
   );
 }

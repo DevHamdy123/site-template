@@ -12,6 +12,11 @@ export const siteConfig = defineSiteConfig({
   itemsLabel: "المنيو",
   currency: "ج.م",
   theme: themes.warm, // try themes.midnight or themes.fresh
+  hero: {
+    badge: "عرض الخريف · خصم 15% على الحلويات",
+    secondaryCtaLabel: "شوف المنيو",
+    // image: "/images/hero.jpg",  // put the file in public/images/ then uncomment
+  },
   contact: {
     whatsapp: "201000000000",
     phone: "01000000000",
@@ -19,7 +24,7 @@ export const siteConfig = defineSiteConfig({
     hours: "يوميًا من 9 ص إلى 12 م",
   },
   sections: [
-    { type: "hero" },
+    { type: "hero", variant: "split" }, // split | full | centered
     { type: "about" },
     { type: "items" },
     { type: "offers" },
