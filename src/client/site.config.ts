@@ -34,7 +34,11 @@ export const siteConfig = defineSiteConfig({
     image: "/images/about.webp",
   },
   offers: [
-    { title: "خصم 15% على الحلويات", description: "على كل الحلويات طوال الأسبوع.", badge: "ينتهي قريبًا" },
+    {
+      title: "خصم 15% على الحلويات",
+      description: "على كل الحلويات طوال الأسبوع.",
+      badge: "ينتهي قريبًا",
+    },
     { title: "قهوة + حلوى", description: "أي قهوة ساخنة مع قطعة حلوى بسعر مميز." },
     { title: "عرض الطلبة", description: "خصم 10% بكارنيه الجامعة." },
   ],
@@ -47,8 +51,8 @@ export const siteConfig = defineSiteConfig({
     { src: "/images/gallery-6.webp", alt: "ماكينة الإسبريسو" },
   ], // 4, 6 or 8 photos fill the grid best
   contact: {
-    whatsapp: "201000000000",
-    phone: "01000000000",
+    whatsapp: "20103735109",
+    phone: "0103735109",
     address: "شارع الجمهورية، المنصورة",
     hours: "يوميًا من 9 ص إلى 12 م",
     openingHours: { open: "09:00", close: "00:00" }, // days: [0..6] (0 = Sunday), timezone: "Africa/Cairo"
