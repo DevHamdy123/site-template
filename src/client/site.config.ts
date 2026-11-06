@@ -58,5 +58,5 @@ export const siteConfig = defineSiteConfig({
     { type: "gallery" },
     { type: "contact" },
   ],
-  features: {},
+  features: { cart: true }, // order cart + WhatsApp message (false = simple site)
 });

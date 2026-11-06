@@ -22,6 +22,7 @@ export async function Items({ variant }: SectionProps) {
         currency={currency}
         whatsapp={contact.whatsapp}
         label={itemsLabel}
+        cartEnabled={siteConfig.features.cart}
       />
     </Section>
   );
