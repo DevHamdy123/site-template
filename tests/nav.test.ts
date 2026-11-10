@@ -4,7 +4,12 @@ import { siteConfig } from "@/client/site.config";
 
 describe("getNavLinks", () => {
   it("excludes the hero and links to section anchors", () => {
-    const links = getNavLinks(siteConfig);
+    // Uses its own config (not the client's), so it passes for every client site.
+    const links = getNavLinks({
+      itemsLabel: "المنتجات",
+      sections: [{ type: "hero" }, { type: "about" }, { type: "items" }],
+      about: { title: "عنّا", text: "نص" },
+    });
     expect(links.map((l) => l.href)).not.toContain("#hero");
     expect(links[0]).toEqual({ href: "#about", label: "عن المحل" });
   });
