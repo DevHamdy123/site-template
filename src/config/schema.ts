@@ -68,6 +68,8 @@ export const siteConfigSchema = z.object({
   /** Label used for the main list: "المنتجات" / "الخدمات" / "المنيو" */
   itemsLabel: z.string().min(1),
   currency: z.string().min(1),
+  /** ISO code used in structured data for Google (price currency) */
+  currencyCode: z.string().length(3).default("EGP"),
   theme: themeSchema,
   /** Search-engine settings. Everything is optional. */
   seo: z
@@ -141,6 +143,8 @@ export const siteConfigSchema = z.object({
     .min(1),
   features: z.object({
     cart: z.boolean().default(false),
+    /** A page per item (/products/[id]) with gallery and options */
+    productPages: z.boolean().default(false),
     booking: z.boolean().default(false),
   }),
 });
@@ -149,6 +153,29 @@ export type SiteConfig = z.output<typeof siteConfigSchema>;
 export type SiteConfigInput = z.input<typeof siteConfigSchema>;
 export type Theme = z.output<typeof themeSchema>;
 
+/** One choice inside an option group, e.g. the color "أسود" or the size "L". */
+export const optionValueSchema = z.object({
+  label: z.string().min(1),
+  /** Color circle, e.g. "#111111" (use for colors) */
+  swatch: z.string().regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/).optional(),
+  /** Photo for this choice (inside /public). Selecting it shows this photo in the gallery. */
+  image: z.string().startsWith("/").optional(),
+  /** Added to the base price when chosen (e.g. +10 for XXL) */
+  priceDelta: z.number().optional(),
+  /** false = sold out (shown crossed out, cannot be chosen) */
+  available: z.boolean().optional(),
+});
+
+export const optionGroupSchema = z
+  .object({
+    /** "اللون" / "المقاس" */
+    name: z.string().min(1),
+    values: z.array(optionValueSchema).min(1),
+  })
+  .refine((g) => new Set(g.values.map((v) => v.label)).size === g.values.length, {
+    message: "Duplicate option value in a group",
+  });
+
 export const itemSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
@@ -156,6 +183,16 @@ export const itemSchema = z.object({
   category: z.string().min(1),
   /** Image inside /public, e.g. /images/mug.webp */
   image: z.string().startsWith("/").optional(),
+  /** More photos for the product page gallery (the main image is always first) */
+  images: z.array(z.string().startsWith("/")).max(8).optional(),
+  /** Choices such as color / size. Shown on the product page (features.productPages). */
+  options: z
+    .array(optionGroupSchema)
+    .max(3)
+    .refine((groups) => new Set(groups.map((g) => g.name)).size === groups.length, {
+      message: "Duplicate option group name",
+    })
+    .optional(),
   /** Optional: services may have no fixed price */
   price: z.number().nonnegative().optional(),
   badge: z.string().optional(),
@@ -168,6 +205,8 @@ export const itemsSchema = z
   });
 
 export type Item = z.output<typeof itemSchema>;
+export type OptionGroup = z.output<typeof optionGroupSchema>;
+export type OptionValue = z.output<typeof optionValueSchema>;
 
 /** Validates at build time: a typo in a client's data fails the build, not the live site. */
 export function defineSiteConfig(input: SiteConfigInput): SiteConfig {

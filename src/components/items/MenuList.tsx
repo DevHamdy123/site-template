@@ -1,6 +1,8 @@
+import Link from "next/link";
 import type { Item } from "@/config/schema";
 import { AddToCart } from "@/components/cart/AddToCart";
 import { Reveal } from "@/components/ui/Reveal";
+import { hasPriceVariation, startingPrice } from "@/lib/cart/cart";
 import { cn, formatPrice } from "@/lib/utils";
 
 type MenuListProps = {
@@ -9,10 +11,12 @@ type MenuListProps = {
   currency: string;
   /** Show the "+" add-to-cart button (site.config features.cart) */
   cartEnabled?: boolean;
+  /** Names link to /products/[id] (site.config features.productPages) */
+  productPages?: boolean;
 };
 
 /** Cafe/restaurant style: items grouped by category, name ..... price. */
-export function MenuList({ items, categories, currency, cartEnabled }: MenuListProps) {
+export function MenuList({ items, categories, currency, cartEnabled, productPages }: MenuListProps) {
   const groups = categories
     .map((category) => ({ category, items: items.filter((i) => i.category === category) }))
     .filter((g) => g.items.length > 0);
@@ -28,28 +32,54 @@ export function MenuList({ items, categories, currency, cartEnabled }: MenuListP
             {group.category}
           </h3>
           <ul className={cn("flex flex-col gap-5", single && "lg:grid lg:grid-cols-2 lg:gap-x-16")}>
-            {group.items.map((item) => (
+            {group.items.map((item) => {
+              const href = `/products/${encodeURIComponent(item.id)}`;
+              const hasOptions = Boolean(productPages && item.options?.length);
+              const from = startingPrice(item);
+              return (
               <li key={item.id}>
                 <div className={cn("flex gap-3", cartEnabled ? "items-center" : "items-baseline")}>
-                  <span className="text-lg font-bold">{item.name}</span>
+                  <span className="text-lg font-bold">
+                    {productPages ? (
+                      <Link href={href} className="hover:text-primary">
+                        {item.name}
+                      </Link>
+                    ) : (
+                      item.name
+                    )}
+                  </span>
                   {item.badge && (
                     <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-white">
                       {item.badge}
                     </span>
                   )}
                   <span aria-hidden className="flex-1 -translate-y-1 border-b-2 border-dotted border-muted-foreground/40" />
-                  {item.price !== undefined && (
+                  {from !== undefined && (
                     <span className="whitespace-nowrap text-lg font-bold text-primary">
-                      {formatPrice(item.price, currency)}
+                      {productPages && hasPriceVariation(item) && (
+                        <span className="me-1 text-xs font-semibold text-muted-foreground">من</span>
+                      )}
+                      {formatPrice(from, currency)}
                     </span>
                   )}
-                  {cartEnabled && <AddToCart item={item} />}
+                  {cartEnabled &&
+                    (hasOptions ? (
+                      <Link
+                        href={href}
+                        className="inline-flex min-h-10 shrink-0 items-center rounded-full border border-border px-4 text-sm font-bold transition hover:bg-muted"
+                      >
+                        اختر
+                      </Link>
+                    ) : (
+                      <AddToCart item={item} />
+                    ))}
                 </div>
                 {item.description && (
                   <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
                 )}
               </li>
-            ))}
+              );
+            })}
           </ul>
         </Reveal>
       ))}

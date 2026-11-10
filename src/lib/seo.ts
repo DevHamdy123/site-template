@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { SiteConfig } from "@/config/schema";
+import type { Item, SiteConfig } from "@/config/schema";
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -81,6 +81,38 @@ export function buildJsonLd(config: SiteConfig, siteUrl: string): Record<string,
       dayOfWeek: (hours.days ?? [0, 1, 2, 3, 4, 5, 6]).map((d) => DAY_NAMES[d]),
       opens: hours.open,
       closes: hours.close,
+    };
+  }
+  return data;
+}
+
+/** schema.org Product, so Google can show the price and availability of one item. */
+export function buildProductJsonLd(
+  config: SiteConfig,
+  item: Item,
+  siteUrl: string,
+): Record<string, unknown> {
+  const images = [item.image, ...(item.images ?? [])].filter((x): x is string => Boolean(x));
+  const soldOut = (item.options ?? []).some((g) => g.values.every((v) => v.available === false));
+  const url = `${siteUrl}/products/${encodeURIComponent(item.id)}`;
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: item.name,
+    sku: item.id,
+    category: item.category,
+    brand: { "@type": "Brand", name: config.name },
+    url,
+  };
+  if (item.description) data.description = item.description;
+  if (images.length > 0) data.image = Array.from(new Set(images)).map((src) => `${siteUrl}${src}`);
+  if (item.price !== undefined) {
+    data.offers = {
+      "@type": "Offer",
+      url,
+      price: item.price,
+      priceCurrency: config.currencyCode,
+      availability: soldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
     };
   }
   return data;

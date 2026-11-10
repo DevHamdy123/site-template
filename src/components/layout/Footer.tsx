@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import type { NavLink } from "@/config/nav";
 
@@ -14,9 +15,9 @@ export function Footer({ name, tagline, links }: FooterProps) {
           </div>
           <nav aria-label="روابط التذييل" className="flex flex-wrap gap-x-6 gap-y-2">
             {links.map((link) => (
-              <a key={link.href} href={link.href} className="font-semibold hover:text-primary">
+              <Link key={link.href} href={link.href} className="font-semibold hover:text-primary">
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

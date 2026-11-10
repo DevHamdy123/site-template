@@ -6,10 +6,12 @@ import {
   addEntry,
   cartCount,
   cartTotal,
+  lineKey,
   parseEntries,
   resolveLines,
   setQty,
   type CartLine,
+  type Selection,
 } from "@/lib/cart/cart";
 import { getServerSnapshot, getSnapshot, subscribe, writeEntries } from "@/lib/cart/store";
 
@@ -17,9 +19,9 @@ type CartContextValue = {
   lines: CartLine[];
   count: number;
   total: number;
-  qtyOf: (id: string) => number;
-  add: (id: string) => void;
-  setQuantity: (id: string, qty: number) => void;
+  qtyOf: (id: string, options?: Selection) => number;
+  add: (id: string, options?: Selection, amount?: number) => void;
+  setQuantity: (id: string, qty: number, options?: Selection) => void;
   clear: () => void;
   isOpen: boolean;
   open: () => void;
@@ -43,9 +45,12 @@ export function CartProvider({ items, children }: { items: Item[]; children: Rea
       lines,
       count: cartCount(lines),
       total: cartTotal(lines),
-      qtyOf: (id) => entries.find((e) => e.id === id)?.qty ?? 0,
-      add: (id) => writeEntries(addEntry(entries, id)),
-      setQuantity: (id, qty) => writeEntries(setQty(entries, id, qty)),
+      qtyOf: (id, options) => entries.find((e) => lineKey(e.id, e.options) === lineKey(id, options))?.qty ?? 0,
+      // Read the saved cart at click time so two quick clicks never overwrite each other.
+      add: (id, options, amount = 1) =>
+        writeEntries(addEntry(parseEntries(getSnapshot()), id, options, amount)),
+      setQuantity: (id, qty, options) =>
+        writeEntries(setQty(parseEntries(getSnapshot()), id, qty, options)),
       clear: () => writeEntries([]),
       isOpen,
       open,
@@ -61,4 +66,9 @@ export function useCart(): CartContextValue {
   const ctx = useContext(CartContext);
   if (!ctx) throw new Error("useCart must be used inside <CartProvider>");
   return ctx;
+}
+
+/** Same as useCart, but returns null on sites without a cart (features.cart = false). */
+export function useOptionalCart(): CartContextValue | null {
+  return useContext(CartContext);
 }
