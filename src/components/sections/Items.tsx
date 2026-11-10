@@ -3,11 +3,11 @@ import type { SectionProps } from "@/config/sections-registry";
 import { ItemsBrowser } from "@/components/items/ItemsBrowser";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
-import { getCategories, getItems } from "@/lib/data/items";
+import { getCategories, getPublicItems } from "@/lib/data/items";
 
 /** Products / services / menu. Variants: "menu" (default, list by category) | "grid" (photo cards). */
 export async function Items({ variant }: SectionProps) {
-  const [items, categories] = await Promise.all([getItems(), getCategories()]);
+  const [items, categories] = await Promise.all([getPublicItems(), getCategories()]);
   const { itemsLabel, currency, contact } = siteConfig;
 
   return (
@@ -23,6 +23,7 @@ export async function Items({ variant }: SectionProps) {
         whatsapp={contact.whatsapp}
         label={itemsLabel}
         cartEnabled={siteConfig.features.cart}
+        productPages={siteConfig.features.productPages}
       />
     </Section>
   );

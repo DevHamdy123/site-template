@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { MessageCircle, Trash2, X } from "lucide-react";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { buildOrderMessage, isOrderReady, type OrderMode } from "@/lib/cart/cart";
+import { buildOrderMessage, isOrderReady, optionsText, type OrderMode } from "@/lib/cart/cart";
 import { cn, formatPrice, whatsappLink } from "@/lib/utils";
 import { useCart } from "./CartProvider";
 
@@ -76,9 +76,14 @@ export function CartDrawer({ shopName, currency, whatsapp }: CartDrawerProps) {
                 <div className="flex-1 overflow-y-auto px-5 py-4">
                   <ul className="flex flex-col gap-3">
                     {lines.map((line) => (
-                      <li key={line.id} className="flex items-center gap-3">
+                      <li key={line.key} className="flex items-center gap-3">
                         <div className="min-w-0 flex-1">
                           <p className="truncate font-bold">{line.name}</p>
+                          {line.options.length > 0 && (
+                            <p className="truncate text-sm text-muted-foreground">
+                              {optionsText(line.options)}
+                            </p>
+                          )}
                           {line.price !== undefined && (
                             <p className="text-sm text-muted-foreground">
                               {formatPrice(line.price * line.qty, currency)}
@@ -88,7 +93,7 @@ export function CartDrawer({ shopName, currency, whatsapp }: CartDrawerProps) {
                         <div className="inline-flex items-center gap-1 rounded-full border border-border p-0.5">
                           <button
                             type="button"
-                            onClick={() => setQuantity(line.id, line.qty - 1)}
+                            onClick={() => setQuantity(line.id, line.qty - 1, line.selection)}
                             aria-label={line.qty === 1 ? `احذف ${line.name}` : `قلّل ${line.name}`}
                             className="inline-flex size-9 items-center justify-center rounded-full bg-muted hover:bg-border"
                           >
@@ -103,7 +108,7 @@ export function CartDrawer({ shopName, currency, whatsapp }: CartDrawerProps) {
                           </span>
                           <button
                             type="button"
-                            onClick={() => setQuantity(line.id, line.qty + 1)}
+                            onClick={() => setQuantity(line.id, line.qty + 1, line.selection)}
                             aria-label={`زوّد ${line.name}`}
                             className="inline-flex size-9 items-center justify-center rounded-full bg-primary text-primary-foreground hover:opacity-90"
                           >

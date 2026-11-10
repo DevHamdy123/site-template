@@ -8,19 +8,19 @@ const variants: Record<Variant, string> = {
   outline: "border border-border bg-transparent text-foreground hover:bg-muted",
 };
 
+/** The button look as a class string, so next/link (or a button) can be styled the same way. */
+export function buttonClasses(variant: Variant = "primary", className?: string) {
+  return cn(
+    "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold transition",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+    variants[variant],
+    className,
+  );
+}
+
 type ButtonLinkProps = React.ComponentProps<"a"> & { variant?: Variant };
 
 /** A link styled as a button (all our CTAs are links: WhatsApp, section anchors). */
 export function ButtonLink({ variant = "primary", className, ...props }: ButtonLinkProps) {
-  return (
-    <a
-      className={cn(
-        "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold transition",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-        variants[variant],
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <a className={buttonClasses(variant, className)} {...props} />;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, MessageCircle, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -13,9 +14,11 @@ type NavbarProps = {
   whatsappHref: string;
   /** Cart button (only passed when features.cart is on) */
   cart?: React.ReactNode;
+  /** Where the brand name links to: "#hero" on the home page, "/" on other pages */
+  homeHref?: string;
 };
 
-export function Navbar({ name, links, whatsappHref, cart }: NavbarProps) {
+export function Navbar({ name, links, whatsappHref, cart, homeHref = "#hero" }: NavbarProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -30,19 +33,19 @@ export function Navbar({ name, links, whatsappHref, cart }: NavbarProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <a href="#hero" className="text-xl font-extrabold text-primary">
+        <Link href={homeHref} className="text-xl font-extrabold text-primary">
           {name}
-        </a>
+        </Link>
 
         <nav aria-label="التنقل الرئيسي" className="hidden items-center gap-6 md:flex">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm font-semibold text-foreground/80 transition hover:text-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -84,14 +87,14 @@ export function Navbar({ name, links, whatsappHref, cart }: NavbarProps) {
           >
             <Container className="flex flex-col gap-1 py-4">
               {links.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className="rounded-xl px-3 py-3 text-lg font-semibold text-foreground hover:bg-muted"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <ButtonLink
                 href={whatsappHref}

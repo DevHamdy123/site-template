@@ -69,5 +69,5 @@ export const siteConfig = defineSiteConfig({
     { type: "gallery" },
     { type: "contact" },
   ],
-  features: { cart: true }, // order cart + WhatsApp message (false = simple site)
+  features: { cart: true, productPages: true }, // cart + WhatsApp order; productPages = a page per item with color/size options
 });
