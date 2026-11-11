@@ -4,7 +4,7 @@ import { siteConfig } from "@/client/site.config";
 import { isDarkModeEnabled, themeToCss } from "@/config/theme-vars";
 import { MotionProvider } from "@/components/MotionProvider";
 import { buildMetadata } from "@/lib/seo";
-import { THEME_INIT_SCRIPT } from "@/lib/theme-init";
+import { themeInitScript } from "@/lib/theme-init";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -35,17 +35,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       dir="rtl"
       className={`${cairo.variable} ${messiri.variable}`}
       suppressHydrationWarning
-      data-scroll-behavior="smooth"
     >
       <head>
         <style dangerouslySetInnerHTML={{ __html: themeToCss(siteConfig) }} />
         {isDarkModeEnabled(siteConfig) && (
-          <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+          <script dangerouslySetInnerHTML={{ __html: themeInitScript(siteConfig.theme.defaultMode) }} />
         )}
       </head>
-      <body className="min-h-dvh font-sans antialiased">
-        <MotionProvider>{children}</MotionProvider>
-      </body>
+      <body className="min-h-dvh font-sans antialiased"><MotionProvider>{children}</MotionProvider></body>
     </html>
   );
 }

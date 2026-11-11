@@ -25,6 +25,8 @@ export const themeSchema = z.object({
   radius: z.enum(["none", "sm", "md", "lg", "xl", "full"]),
   /** modern = Cairo (clean), classic = El Messiri (elegant display) */
   headingFont: z.enum(["modern", "classic"]),
+  /** Which look the site opens in for first-time visitors (when dark mode is on). Default: follow the device. */
+  defaultMode: z.enum(["system", "light", "dark"]).optional(),
 });
 
 export const heroSchema = z.object({
