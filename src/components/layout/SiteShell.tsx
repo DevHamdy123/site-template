@@ -44,7 +44,12 @@ export async function SiteShell({ children, subpage = false }: SiteShellProps) {
   return (
     <CartProvider items={items}>
       {shell}
-      <CartDrawer shopName={name} currency={currency} whatsapp={contact.whatsapp} />
+      <CartDrawer
+        shopName={name}
+        currency={currency}
+        whatsapp={contact.whatsapp}
+        openingHours={contact.openingHours}
+      />
     </CartProvider>
   );
 }
