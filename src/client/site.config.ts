@@ -3,59 +3,55 @@ import { themes } from "@/config/themes";
 
 /**
  * ★ Client file — the main thing that changes per shop.
- * Example data below (a fictional café). Replace for each client.
+ * Neutral starter content: copy this template, then replace every value for the new client.
  */
 export const siteConfig = defineSiteConfig({
-  name: "مقهى النيل",
-  tagline: "قهوة مظبوطة وقعدة هادية في قلب المنصورة",
-  description: "مقهى النيل: مشروبات وحلويات ومكان مريح. اطلب أو تواصل معنا على واتساب.",
-  itemsLabel: "المنيو",
+  name: "اسم المحل",
+  tagline: "جملة قصيرة تعرّف الزبون بالمحل",
+  description: "وصف مختصر للمحل في سطرين يظهر في نتائج جوجل ومشاركة الروابط.",
+  itemsLabel: "المنتجات", // "المنيو" / "الخدمات" / "المنتجات"
   currency: "ج.م",
   theme: themes.warm, // try themes.midnight or themes.fresh
   seo: {
-    businessType: "CafeOrCoffeeShop", // LocalBusiness | Restaurant | BeautySalon | ClothingStore | ...
-    keywords: ["مقهى المنصورة", "قهوة", "حلويات", "كافيه"],
+    businessType: "LocalBusiness", // Restaurant | CafeOrCoffeeShop | BeautySalon | ClothingStore | ...
+    keywords: ["كلمة مفتاحية 1", "كلمة مفتاحية 2"],
     // ogImage: "/images/og.webp", // default: the hero image
   },
   hero: {
-    badge: "عرض الخريف · خصم 15% على الحلويات",
-    secondaryCtaLabel: "شوف المنيو",
+    badge: "عرض تجريبي · غيّره حسب العميل",
+    secondaryCtaLabel: "شوف المنتجات",
     image: "/images/hero.webp", // file lives in public/images/
   },
   highlights: [
-    { label: "مواعيد العمل", value: "يوميًا من 9 ص إلى 12 م" },
-    { label: "التوصيل", value: "متاح داخل المنصورة" },
-    { label: "جديد هذا الأسبوع", value: "تشيز كيك الفستق" },
+    { label: "مواعيد العمل", value: "يوميًا من 10 ص إلى 10 م" },
+    { label: "التوصيل", value: "متاح داخل المدينة" },
+    { label: "جديد هذا الأسبوع", value: "منتج جديد" },
   ],
   about: {
-    title: "قصتنا",
-    text: "بدأنا بحلم بسيط: مكان هادي في قلب المنصورة تقعد فيه تشرب قهوة مظبوطة وتحس إنك في بيتك.\nبنحمّص البن بنفسنا ونحضّر الحلويات يوميًا طازجة.",
-    points: ["بن مُحمّص طازج", "حلويات يومية", "جلسات هادية", "واي فاي مجاني"],
+    title: "عن المحل",
+    text: "اكتب هنا قصة المحل في سطرين أو تلاتة.\nمين إحنا، وإيه اللي بيميّزنا عن غيرنا.",
+    points: ["ميزة أولى", "ميزة تانية", "ميزة تالتة"],
     image: "/images/about.webp",
   },
   offers: [
-    {
-      title: "خصم 15% على الحلويات",
-      description: "على كل الحلويات طوال الأسبوع.",
-      badge: "ينتهي قريبًا",
-    },
-    { title: "قهوة + حلوى", description: "أي قهوة ساخنة مع قطعة حلوى بسعر مميز." },
-    { title: "عرض الطلبة", description: "خصم 10% بكارنيه الجامعة." },
+    { title: "عرض تجريبي 1", description: "وصف العرض هنا.", badge: "لفترة محدودة" },
+    { title: "عرض تجريبي 2", description: "وصف العرض هنا." },
+    { title: "عرض تجريبي 3", description: "وصف العرض هنا." },
   ],
   gallery: [
-    { src: "/images/gallery-1.webp", alt: "قطعة كيك" },
-    { src: "/images/gallery-2.webp", alt: "آيس كوفي" },
-    { src: "/images/gallery-3.webp", alt: "معجنات طازجة" },
-    { src: "/images/gallery-4.webp", alt: "تحضير القهوة" },
-    { src: "/images/gallery-5.webp", alt: "حلوى الشوكولاتة" },
-    { src: "/images/gallery-6.webp", alt: "ماكينة الإسبريسو" },
+    { src: "/images/gallery-1.webp", alt: "صورة 1" },
+    { src: "/images/gallery-2.webp", alt: "صورة 2" },
+    { src: "/images/gallery-3.webp", alt: "صورة 3" },
+    { src: "/images/gallery-4.webp", alt: "صورة 4" },
+    { src: "/images/gallery-5.webp", alt: "صورة 5" },
+    { src: "/images/gallery-6.webp", alt: "صورة 6" },
   ], // 4, 6 or 8 photos fill the grid best
   contact: {
-    whatsapp: "201037351092",
-    phone: "01037351092",
-    address: "شارع الجمهورية، المنصورة",
-    hours: "يوميًا من 9 ص إلى 12 م",
-    openingHours: { open: "09:00", close: "00:00" }, // days: [0..6] (0 = Sunday), timezone: "Africa/Cairo"
+    whatsapp: "201000000000", // digits only, with country code (no + and no leading 0)
+    phone: "01000000000",
+    address: "العنوان هنا، المدينة",
+    hours: "يوميًا من 10 ص إلى 10 م",
+    openingHours: { open: "10:00", close: "22:00" }, // days: [0..6] (0 = Sunday), timezone: "Africa/Cairo"
     // mapUrl: "https://maps.app.goo.gl/...",            // opens Google Maps
     // mapEmbedUrl: "https://www.google.com/maps/embed?pb=...", // shows the map inside the page
     // social: { instagram: "https://instagram.com/your-page", facebook: "https://facebook.com/your-page" },
@@ -64,7 +60,7 @@ export const siteConfig = defineSiteConfig({
     { type: "hero", variant: "card" }, // card | full | split | centered
     { type: "highlights" },
     { type: "about" },
-    { type: "items", variant: "menu" }, // menu (cafe) | grid (products with photos)
+    { type: "items", variant: "grid" }, // menu (cafe) | grid (products with photos)
     { type: "offers" },
     { type: "gallery" },
     { type: "contact" },

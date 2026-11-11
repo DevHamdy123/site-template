@@ -1,28 +1,53 @@
 import { defineItems } from "@/config/schema";
 
-/** ★ Client file — products / services / menu items. Example data (a fictional café). */
-const shot = {
-  name: "النوع",
-  values: [{ label: "سنجل" }, { label: "دوبل", priceDelta: 15 }],
-};
-
-
-const sizes = {
-  name: "الحجم",
-  values: [{ label: "صغير" }, { label: "وسط", priceDelta: 10 }, { label: "كبير", priceDelta: 20 }],
-};
-
+/**
+ * ★ Client file — products / services / menu items. Neutral starter data.
+ * Shows the three kinds of item: with color + size, with size only (price extra), and a plain one.
+ * Options (colors/sizes) and extra photos need `features.productPages: true` in site.config.ts.
+ */
 export const items = defineItems([
-  { id: "espresso", name: "إسبريسو", description: "شوت مركّز من بن مخصوص", category: "قهوة ساخنة", price: 35, image: "/images/gallery-6.webp", options: [shot] },
-  { id: "americano", name: "أمريكانو", category: "قهوة ساخنة", price: 40, options: [sizes] },
-  { id: "latte", name: "لاتيه", description: "إسبريسو مع حليب مبخّر ورغوة ناعمة", category: "قهوة ساخنة", price: 55, badge: "الأكثر طلبًا", image: "/images/gallery-4.webp", options: [sizes] },
-  { id: "cappuccino", name: "كابتشينو", category: "قهوة ساخنة", price: 55, options: [sizes] },
-  { id: "iced-latte", name: "آيس لاتيه", description: "لاتيه بارد مع ثلج", category: "قهوة باردة", price: 60, image: "/images/gallery-2.webp", options: [sizes] },
-  { id: "cold-brew", name: "كولد برو", description: "مُخمّر ببطء لمدة 12 ساعة", category: "قهوة باردة", price: 65, options: [sizes] },
-  { id: "iced-mocha", name: "آيس موكا", category: "قهوة باردة", price: 70, options: [sizes] },
-  { id: "cheesecake", name: "تشيز كيك", description: "بصوص التوت", category: "حلويات", price: 70, badge: "جديد", image: "/images/gallery-1.webp", options: [{ name: "الصوص", values: [{ label: "توت" }, { label: "فراولة" }, { label: "مانجو" }] }] },
-  { id: "brownie", name: "براوني", description: "شوكولاتة غامقة مع مكسرات", category: "حلويات", price: 55, image: "/images/gallery-5.webp", options: [{ name: "الإضافة", values: [{ label: "سادة" }, { label: "مع آيس كريم", priceDelta: 20 }] }] },
-  { id: "croissant", name: "كرواسون بالزبدة", category: "حلويات", price: 45, image: "/images/gallery-3.webp", options: [{ name: "الحشو", values: [{ label: "سادة" }, { label: "جبنة", priceDelta: 10 }, { label: "شوكولاتة", priceDelta: 10 }] }] },
-  { id: "lemon-mint", name: "ليمون بالنعناع", category: "مشروبات", price: 40, options: [sizes] },
-  { id: "fresh-orange", name: "عصير برتقال طازج", category: "مشروبات", price: 50, options: [sizes] },
+  {
+    id: "product-1",
+    name: "منتج تجريبي 1",
+    description: "وصف المنتج هنا. المنتج ده عليه اختيار لون ومقاس.",
+    category: "التصنيف الأول",
+    price: 300,
+    image: "/images/product-1.webp",
+    badge: "جديد",
+    options: [
+      {
+        name: "اللون",
+        values: [
+          { label: "أزرق", swatch: "#3b5b9d", image: "/images/product-1.webp" },
+          { label: "أحمر", swatch: "#c0463c", image: "/images/product-1b.webp" },
+        ],
+      },
+      {
+        name: "المقاس",
+        values: [{ label: "S" }, { label: "M" }, { label: "L" }, { label: "XL", available: false }],
+      },
+    ],
+  },
+  {
+    id: "product-2",
+    name: "منتج تجريبي 2",
+    description: "وصف المنتج هنا. المقاس الأكبر بسعر أعلى.",
+    category: "التصنيف الأول",
+    price: 450,
+    image: "/images/product-2.webp",
+    options: [
+      {
+        name: "المقاس",
+        values: [{ label: "صغير" }, { label: "وسط", priceDelta: 20 }, { label: "كبير", priceDelta: 40 }],
+      },
+    ],
+  },
+  {
+    id: "product-3",
+    name: "منتج تجريبي 3",
+    description: "منتج بسيط من غير خيارات.",
+    category: "التصنيف الثاني",
+    price: 150,
+    image: "/images/product-3.webp",
+  },
 ]);
