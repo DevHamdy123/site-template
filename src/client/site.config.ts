@@ -70,5 +70,10 @@ export const siteConfig = defineSiteConfig({
     { type: "gallery" },
     { type: "contact" },
   ],
-  features: { cart: true, productPages: true, qr: true }, // cart + WhatsApp order | productPages = a page per item | qr = printable QR poster at /qr
+  features: {
+    cart: true,
+    productPages: true,
+    qr: true,
+    darkMode: true,
+  }, // cart + WhatsApp order | productPages = a page per item | qr = printable QR poster at /qr
 });

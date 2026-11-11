@@ -14,11 +14,13 @@ type NavbarProps = {
   whatsappHref: string;
   /** Cart button (only passed when features.cart is on) */
   cart?: React.ReactNode;
+  /** Light/dark button (only passed when dark mode is on) */
+  themeToggle?: React.ReactNode;
   /** Where the brand name links to: "#hero" on the home page, "/" on other pages */
   homeHref?: string;
 };
 
-export function Navbar({ name, links, whatsappHref, cart, homeHref = "#hero" }: NavbarProps) {
+export function Navbar({ name, links, whatsappHref, cart, themeToggle, homeHref = "#hero" }: NavbarProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -50,6 +52,7 @@ export function Navbar({ name, links, whatsappHref, cart, homeHref = "#hero" }: 
         </nav>
 
         <div className="flex items-center gap-2">
+          {themeToggle}
           {cart}
           <ButtonLink
             href={whatsappHref}

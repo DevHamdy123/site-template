@@ -6,18 +6,22 @@ export type SectionType = (typeof SECTION_TYPES)[number];
 
 const hex = z.string().regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/, "Use a hex color like #1f3a5f");
 
+const colorsSchema = z.object({
+  background: hex,
+  foreground: hex,
+  primary: hex,
+  primaryForeground: hex,
+  secondary: hex,
+  muted: hex,
+  mutedForeground: hex,
+  accent: hex,
+  border: hex,
+});
+
 export const themeSchema = z.object({
-  colors: z.object({
-    background: hex,
-    foreground: hex,
-    primary: hex,
-    primaryForeground: hex,
-    secondary: hex,
-    muted: hex,
-    mutedForeground: hex,
-    accent: hex,
-    border: hex,
-  }),
+  colors: colorsSchema,
+  /** Colors for dark mode. Without them the theme has no dark mode (the toggle is hidden). */
+  darkColors: colorsSchema.optional(),
   radius: z.enum(["none", "sm", "md", "lg", "xl", "full"]),
   /** modern = Cairo (clean), classic = El Messiri (elegant display) */
   headingFont: z.enum(["modern", "classic"]),
@@ -156,6 +160,8 @@ export const siteConfigSchema = z.object({
     productPages: z.boolean().default(false),
     /** A printable QR poster at /qr (door sticker: scan to browse and order) */
     qr: z.boolean().default(false),
+    /** Light/dark toggle in the navbar (needs `theme.darkColors`) */
+    darkMode: z.boolean().default(false),
     booking: z.boolean().default(false),
   }),
 });

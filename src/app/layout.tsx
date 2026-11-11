@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Cairo, El_Messiri } from "next/font/google";
 import { siteConfig } from "@/client/site.config";
-import { themeToCssVars } from "@/config/theme-vars";
+import { isDarkModeEnabled, themeToCss } from "@/config/theme-vars";
 import { MotionProvider } from "@/components/MotionProvider";
 import { buildMetadata } from "@/lib/seo";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-init";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -33,9 +34,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="ar"
       dir="rtl"
       className={`${cairo.variable} ${messiri.variable}`}
-      style={themeToCssVars(siteConfig.theme) as React.CSSProperties}
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
     >
-      <body className="min-h-dvh font-sans antialiased"><MotionProvider>{children}</MotionProvider></body>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: themeToCss(siteConfig) }} />
+        {isDarkModeEnabled(siteConfig) && (
+          <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        )}
+      </head>
+      <body className="min-h-dvh font-sans antialiased">
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }
