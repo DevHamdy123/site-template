@@ -24,7 +24,7 @@ export default async function QrPage() {
   const logo = siteConfig.qr?.logo;
 
   return (
-    <main className="min-h-dvh bg-muted py-8 print:bg-white print:py-0">
+    <main data-theme="light" className="min-h-dvh bg-muted py-8 print:bg-white print:py-0">
       <div className="mx-auto flex w-full max-w-[210mm] flex-col items-center gap-6 px-4">
         <div className="flex w-full flex-col items-center gap-6 rounded-3xl bg-background px-6 py-10 text-center shadow-sm sm:px-12 sm:py-14 print:min-h-[297mm] print:justify-center print:rounded-none print:shadow-none">
           <p className="text-3xl font-extrabold text-primary sm:text-5xl">{siteConfig.name}</p>

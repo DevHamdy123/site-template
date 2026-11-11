@@ -5,6 +5,8 @@ import { CartProvider } from "@/components/cart/CartProvider";
 import { NavCartButton } from "@/components/cart/NavCartButton";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { isDarkModeEnabled } from "@/config/theme-vars";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { getPublicItems } from "@/lib/data/items";
 import { whatsappLink } from "@/lib/utils";
@@ -29,6 +31,7 @@ export async function SiteShell({ children, subpage = false }: SiteShellProps) {
         links={links}
         whatsappHref={whatsappHref}
         homeHref={subpage ? "/" : "#hero"}
+        themeToggle={isDarkModeEnabled(siteConfig) ? <ThemeToggle /> : undefined}
         cart={features.cart ? <NavCartButton currency={currency} /> : undefined}
       />
       {children}
