@@ -2,12 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { MessageCircle, Trash2, X } from "lucide-react";
+import type { OpeningHours } from "@/config/schema";
+import { useIsOpen } from "@/lib/use-open-now";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { buildOrderMessage, isOrderReady, optionsText, type OrderMode } from "@/lib/cart/cart";
 import { cn, formatPrice, whatsappLink } from "@/lib/utils";
 import { useCart } from "./CartProvider";
 
-type CartDrawerProps = { shopName: string; currency: string; whatsapp: string };
+type CartDrawerProps = {
+  shopName: string;
+  currency: string;
+  whatsapp: string;
+  /** When given, the cart warns the customer if the shop is closed right now */
+  openingHours?: OpeningHours;
+};
 
 const field =
   "min-h-11 w-full rounded-xl border border-border bg-background px-4 py-2 text-base outline-none transition focus:border-primary";
@@ -18,7 +26,8 @@ const MODES: { value: OrderMode; label: string }[] = [
 ];
 
 /** Cart panel: bottom sheet on phones, side panel on larger screens. */
-export function CartDrawer({ shopName, currency, whatsapp }: CartDrawerProps) {
+export function CartDrawer({ shopName, currency, whatsapp, openingHours }: CartDrawerProps) {
+  const isOpenNow = useIsOpen(openingHours);
   const { lines, total, isOpen, close, setQuantity, clear } = useCart();
   const [mode, setMode] = useState<OrderMode>("pickup");
   const [name, setName] = useState("");
@@ -187,6 +196,14 @@ export function CartDrawer({ shopName, currency, whatsapp }: CartDrawerProps) {
                 </div>
 
                 <div className="flex flex-col gap-3 border-t border-border px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+                  {isOpenNow === false && (
+                    <p
+                      role="status"
+                      className="rounded-xl bg-muted px-4 py-3 text-sm font-semibold leading-relaxed"
+                    >
+                      المحل مقفول دلوقتي. ابعت طلبك وهنرد عليك أول ما نفتح.
+                    </p>
+                  )}
                   <div className="flex items-center justify-between text-lg font-bold">
                     <span>الإجمالي</span>
                     <span className="text-primary">{formatPrice(total, currency)}</span>

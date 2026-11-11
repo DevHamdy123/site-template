@@ -141,10 +141,21 @@ export const siteConfigSchema = z.object({
       }),
     )
     .min(1),
+  /** Text and logo on the /qr poster. Everything is optional. */
+  qr: z
+    .object({
+      headline: z.string().min(1).optional(),
+      text: z.string().min(1).optional(),
+      /** Logo shown in the middle of the QR (inside /public). Keep it simple and square. */
+      logo: z.string().startsWith("/").optional(),
+    })
+    .optional(),
   features: z.object({
     cart: z.boolean().default(false),
     /** A page per item (/products/[id]) with gallery and options */
     productPages: z.boolean().default(false),
+    /** A printable QR poster at /qr (door sticker: scan to browse and order) */
+    qr: z.boolean().default(false),
     booking: z.boolean().default(false),
   }),
 });

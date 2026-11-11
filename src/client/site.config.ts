@@ -56,6 +56,11 @@ export const siteConfig = defineSiteConfig({
     // mapEmbedUrl: "https://www.google.com/maps/embed?pb=...", // shows the map inside the page
     // social: { instagram: "https://instagram.com/your-page", facebook: "https://facebook.com/your-page" },
   },
+  qr: {
+    headline: "المحل مقفول؟ اطلب من موبايلك",
+    text: "امسح الكود وشوف منتجاتنا وعروضنا واطلب أونلاين",
+    // logo: "/images/logo.webp", // square logo shown in the middle of the QR
+  },
   sections: [
     { type: "hero", variant: "card" }, // card | full | split | centered
     { type: "highlights" },
@@ -65,5 +70,5 @@ export const siteConfig = defineSiteConfig({
     { type: "gallery" },
     { type: "contact" },
   ],
-  features: { cart: true, productPages: true }, // cart + WhatsApp order; productPages = a page per item with color/size options
+  features: { cart: true, productPages: true, qr: true }, // cart + WhatsApp order | productPages = a page per item | qr = printable QR poster at /qr
 });
